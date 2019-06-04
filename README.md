@@ -24,3 +24,4 @@ Must have:
 П.С. За потреби можна використовувати інші ресурси.# phaser_test_game
 # phaser_test_game
 # phaser_test
+# phaser_test
