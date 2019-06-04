@@ -22,3 +22,4 @@ Must have:
 Шрифт: https://fonts.google.com/specimen/Fredoka+One?selection.family=Fredoka+One
 
 П.С. За потреби можна використовувати інші ресурси.# phaser_test_game
+# phaser_test_game
