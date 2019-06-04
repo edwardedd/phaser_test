@@ -21,4 +21,4 @@ Must have:
 Всі ресурси можна знайти в папках images та audio. 
 Шрифт: https://fonts.google.com/specimen/Fredoka+One?selection.family=Fredoka+One
 
-П.С. За потреби можна використовувати інші ресурси.
+П.С. За потреби можна використовувати інші ресурси.# phaser_test_game
