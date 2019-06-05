@@ -7,10 +7,7 @@ Main.prototype = {
 	create: function() {
 
 		var me = this;
-
-		me.game.stage.backgroundColor = "34495f";
-
-		
+		me.game.stage.backgroundColor = "34495f";		
 		me.tileTypes = [
 			'blue',
 			'green',
@@ -21,20 +18,13 @@ Main.prototype = {
 		];
 
 		me.score = 0;
-		me.seconds = 20;
-		
+		me.seconds = 20;		
 		me.activeTile1 = null;
-		me.activeTile2 = null;
-
-		
-		me.canMove = false;
-
-		
+		me.activeTile2 = null;		
+		me.canMove = false;		
 		me.tileWidth = me.game.cache.getImage('blue').width;
 		me.tileHeight = me.game.cache.getImage('blue').height;
-
 		me.tiles = me.game.add.group();
-
 		me.tileGrid = [
 			[null, null, null, null, null, null],
 			[null, null, null, null, null, null],
@@ -48,13 +38,9 @@ Main.prototype = {
 		
 		var seed = Date.now();
 		me.random = new Phaser.RandomDataGenerator([seed]);
-
-		me.initTiles();
-	
+		me.initTiles();	
 		me.createScore();
-
 		me.createCounter();
-
 		me.updateCounter()
 		
 	},
@@ -100,17 +86,13 @@ Main.prototype = {
 	},
 
 	initTiles: function(){
-
 		var me = this;
-
 		for(var i = 0; i < me.tileGrid.length; i++){
 
 			for(var j = 0; j < me.tileGrid.length; j++){
 
 				var tile = me.addTile(i, j);
-
 				me.tileGrid[i][j] = tile;
-
 			}
 		}
 
@@ -121,23 +103,14 @@ Main.prototype = {
 	},
 
 	addTile: function(x, y){
-
 		var me = this;
-
 		var tileToAdd = me.tileTypes[me.random.integerInRange(0, me.tileTypes.length - 1)];	
-
 		var tile = me.tiles.create((x * me.tileWidth) + me.tileWidth / 2, 0, tileToAdd);
-
 		me.game.add.tween(tile).to({y:y*me.tileHeight+(me.tileHeight/2)}, 500, Phaser.Easing.Linear.In, true)
-
 		tile.anchor.setTo(0.5, 0.5);
-
 		tile.inputEnabled = true;
-
 		tile.tileType = tileToAdd;
-
 		tile.events.onInputDown.add(me.tileDown, me);
-
 		return tile;
 
 	},
@@ -145,10 +118,8 @@ Main.prototype = {
 	tileDown: function(tile, pointer){
 
 		var me = this;
-
 		if(me.canMove){
 			me.activeTile1 = tile;
-
 			me.startPosX = (tile.x - me.tileWidth/2) / me.tileWidth;
 			me.startPosY = (tile.y - me.tileHeight/2) / me.tileHeight;
 		}
@@ -166,7 +137,6 @@ Main.prototype = {
 	swapTiles: function(){
 
 		var me = this;
-
 		if(me.activeTile1 && me.activeTile2){
 
 			var tile1Pos = {x:(me.activeTile1.x - me.tileWidth / 2) / me.tileWidth, y:(me.activeTile1.y - me.tileHeight / 2) / me.tileHeight};
@@ -187,17 +157,11 @@ Main.prototype = {
 
 	checkMatch: function(){
 
-		var me = this;
-
-		
+		var me = this;		
 		var matches = me.getMatches(me.tileGrid);
-
 		if(matches.length > 0){
-
 			me.removeTileGroup(matches);
-
 			me.resetTile();
-
 			me.fillTile();
 			me.game.time.events.add(500, function(){
 				me.tileUp();
@@ -220,10 +184,8 @@ Main.prototype = {
 	},
 
 	getMatches: function(tileGrid){
-
 		var matches = [];
 		var groups = [];
-
 		for (var i = 0; i < tileGrid.length; i++)
 		{
 			var tempArr = tileGrid[i];
@@ -304,25 +266,15 @@ Main.prototype = {
 
 	},
 
-	removeTileGroup: function(matches){
-		
+	removeTileGroup: function(matches){		
 		var me = this;
-
 		for(var i = 0; i < matches.length; i++){
 			var tempArr = matches[i];
-
 			for(var j = 0; j < tempArr.length; j++){
-
-				var tile = tempArr[j];
-				
-				var tilePos = me.getTilePos(me.tileGrid, tile);
-
-				
-				me.tiles.remove(tile);
-
-				
+				var tile = tempArr[j];				
+				var tilePos = me.getTilePos(me.tileGrid, tile);				
+				me.tiles.remove(tile);				
 				me.incrementScore();
-
 				if(tilePos.x != -1 && tilePos.y != -1){
 					me.tileGrid[tilePos.x][tilePos.y] = null;
 				}
@@ -333,9 +285,7 @@ Main.prototype = {
 
 	getTilePos: function(tileGrid, tile)
 	{
-		var pos = {x:-1, y:-1};
-
-		
+		var pos = {x:-1, y:-1};		
 		for(var i = 0; i < tileGrid.length ; i++)
 		{
 			for(var j = 0; j < tileGrid[i].length; j++)
@@ -354,26 +304,18 @@ Main.prototype = {
 	},
 
 	resetTile: function(){
-
 		var me = this;
-
 		for (var i = 0; i < me.tileGrid.length; i++)
 		{
-
-			
+		
 			for (var j = me.tileGrid[i].length - 1; j > 0; j--)
-			{
-
-			
+			{			
 				if(me.tileGrid[i][j] == null && me.tileGrid[i][j-1] != null)
-				{
-				
+				{				
 					var tempTile = me.tileGrid[i][j-1];
 					me.tileGrid[i][j] = tempTile;
 					me.tileGrid[i][j-1] = null;
-
 					me.game.add.tween(tempTile).to({y:(me.tileHeight*j)+(me.tileHeight/2)}, 200, Phaser.Easing.Linear.In, true);
-
 					j = me.tileGrid[i].length;
 				}
 			}
@@ -382,9 +324,7 @@ Main.prototype = {
 	},
 
 	fillTile: function(){
-
 		var me = this;
-
 		for(var i = 0; i < me.tileGrid.length; i++){
 
 			for(var j = 0; j < me.tileGrid.length; j++){
@@ -401,14 +341,11 @@ Main.prototype = {
 
 	},
 
-	createScore: function(){
-
-	
+	createScore: function(){	
 		var me = this;
 		var scoreFont = "100px Arial";
-
 		me.scoreLabel = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth),
-		 me.tileGrid.length * me.tileHeight, "0", {font: scoreFont, fill: "#fff"}); 
+		me.tileGrid.length * me.tileHeight, "0", {font: scoreFont, fill: "#fff"}); 
 		me.scoreLabel.anchor.setTo(0.5, 0);
 		me.scoreLabel.align = 'center';
 
@@ -417,9 +354,7 @@ Main.prototype = {
 	},
 
 	incrementScore: function(){
-
 		var me = this;
-
 		me.score += 10;   
 		me.scoreLabel.text = me.score; 		
 
@@ -428,7 +363,6 @@ Main.prototype = {
 	createCounter: function(){
 		var me = this;
 		var scoreFont = "100px Arial";
-
 		me.timer = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth+400),
 		 me.tileGrid.length * me.tileHeight-400, "2", {font: scoreFont, fill: "#fff"}); 
 		me.timer.anchor.setTo(0.5, 1);
