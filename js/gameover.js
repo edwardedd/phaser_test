@@ -6,8 +6,8 @@ var GameOver = function(game){
 GameOver.prototype = {
   preload: function(){
     var me = this;
-    me.logo = me.add.sprite((me.game.width * 0.5)-300,(me.game.height * 0.5)-256, "logo");
-    me.timeup = me.add.sprite((me.game.width * 0.5)-500,(me.game.height * 0.5)+100, "timeup")
+    me.logo = me.add.sprite((me.game.width * 0.5)-400,(me.game.height * 0.5)-256, "logo");
+    me.timeup = me.add.sprite((me.game.width * 0.5)-400,(me.game.height * 0.5)+200, "timeup")
   },
 
   create: function(){
