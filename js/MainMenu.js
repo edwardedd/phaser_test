@@ -10,7 +10,7 @@ MainMenu.prototype = {
 
   create: function(){
     var me = this;
-    me.btn = me.add.button(550,600,"Button", me.startGame, me,0,1,2,3);
+    me.btn = me.add.button(50,500,"Button", me.startGame, me,0,1,2,3);
     me.btn.anchor.setTo(-1,0.5);
     me.music = me.add.audio('music',1,true,true);
     me.music.play();

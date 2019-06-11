@@ -13,7 +13,9 @@ Preload.prototype = {
     me.game.load.spritesheet('Button', 'assets/btn-play.png',300,100);
     me.game.load.image('logo', 'assets/donuts_logo.png'); 
     me.game.load.image('timeup', 'assets/timeup.png');  
-    me.game.load.audio('music', 'sounds/background.mp3')   
+    me.game.load.audio('music', 'sounds/background.mp3') ;
+    me.game.load.image('background', 'assets/background.jpg',300,300);
+    me.game.load.image('score', 'assets/score.png',300,300)    
   },
   
   create: function(){

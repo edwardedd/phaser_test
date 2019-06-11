@@ -5,7 +5,13 @@ var Main = function(game){
 Main.prototype = {
   create: function() {
     var me = this;
-    me.game.stage.backgroundColor = "34495f";
+    // me.game.stage.backgroundColor = "34495f";
+    me.bgrd = me.add.sprite(0,0,"background");
+    me.bgrd.height = 700;
+    me.bgrd.width = 700;
+    me.bgrd.scale.x = 1;
+    me.bgrd.scale.y = 1;
+
     me.tileTypes = [
       'blue',
       'green',
@@ -14,6 +20,12 @@ Main.prototype = {
       'pink',
       'sky'
     ];
+
+    me.score = me.add.sprite(100,580,"score");
+    me.score.height = 300;
+    me.score.width = 400;
+    me.score.scale.x = 0.8;
+    me.score.scale.y = 0.8;
 
     me.score = 0;
     me.seconds = 20;
@@ -328,10 +340,10 @@ Main.prototype = {
 
 
     var me = this;
-    var scoreFont = "100px Arial";
+    var scoreFont = "80px Arial";
     me.scoreLabel = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth),
-     me.tileGrid.length * me.tileHeight, "0", {font: scoreFont, fill: "#fff"}); 
-    me.scoreLabel.anchor.setTo(0.5, 0);
+     me.tileGrid.length * me.tileHeight+18, "0", {font: scoreFont, fill: "#fff"}); 
+    me.scoreLabel.anchor.setTo(0.4, 0);
     me.scoreLabel.align = 'center';
 
 
@@ -347,7 +359,7 @@ Main.prototype = {
 
   createCounter: function(){
     var me = this;
-    var scoreFont = "100px Arial";
+    var scoreFont = "80px Arial";
 
     me.timer = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth+400),
      me.tileGrid.length * me.tileHeight-400, "2", {font: scoreFont, fill: "#fff"}); 
